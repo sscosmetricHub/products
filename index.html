@@ -203,6 +203,31 @@
       background: white;
       color: #667eea;
     }
+    /* Footer */
+    .footer {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 60px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .footer p {
+      margin: 10px 0;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .footer a {
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .footer a:hover {
+      border-bottom-color: white;
+      opacity: 0.9;
+    }
     /* Floating Action Button */
     .fab-container {
       position: fixed;
@@ -383,6 +408,22 @@
       .fab-button-label {
         font-size: 12px;
         padding: 5px 10px;
+      }
+      .footer {
+        padding: 20px 15px;
+        margin-top: 40px;
+      }
+      .footer p {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .footer p:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .footer p:last-child a {
+        display: inline-block;
       }
     }
   </style>
@@ -1130,6 +1171,16 @@
       📞
     </button>
   </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2026 SScosmeticHub. All rights reserved.</p>
+    <p>
+      📧 <a href="mailto:sscosmetichub2024@gmail.com">sscosmetichub2024@gmail.com</a> |
+      📞 <a href="tel:+919726641926">+91 97266 41926</a> |
+      💬 <a href="https://wa.me/919726641926" target="_blank">WhatsApp</a>
+    </p>
+  </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
