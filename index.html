@@ -30,12 +30,73 @@
       margin: 0;
       opacity: 0.9;
     }
+    .search-container {
+      max-width: 600px;
+      margin: 30px auto;
+      position: relative;
+    }
+    .search-wrapper {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 50px;
+      padding: 12px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      gap: 10px;
+    }
+    .search-icon {
+      color: #667eea;
+      font-size: 20px;
+    }
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      color: #212529;
+      background: transparent;
+    }
+    .search-input::placeholder {
+      color: #adb5bd;
+    }
+    .clear-button {
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: background 0.3s ease;
+    }
+    .clear-button:hover {
+      background: #5568d3;
+    }
+    .clear-button.visible {
+      display: flex;
+    }
+    .results-header {
+      text-align: center;
+      color: white;
+      margin: 20px 0;
+      font-size: 20px;
+      font-weight: 600;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+      display: none;
+    }
+    .results-header.visible {
+      display: block;
+    }
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
       margin-top: 30px;
-      max-width: 1400px;
+      max-width: 800px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -119,7 +180,7 @@
     }
     @media (max-width: 768px) {
       .products {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 15px;
       }
       .header h1 {
@@ -131,6 +192,12 @@
       .product .image-container {
         height: 160px;
       }
+      .search-container {
+        margin: 20px 15px;
+      }
+      .results-header {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
@@ -140,11 +207,21 @@
     <p>Premium Beauty & Hair Care Products</p>
   </div>
   
-  <div class="products">
+  <div class="search-container">
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" id="searchInput" placeholder="Search Your Item">
+      <button class="clear-button" id="clearButton" onclick="clearSearch()">✕</button>
+    </div>
+  </div>
+  
+  <div class="results-header" id="resultsHeader">Found <span id="resultCount">0</span> Results</div>
+  
+  <div class="products" id="productsContainer">
     
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_164957.jpg?raw=true" alt="LOREAL EXCELLENCE CREAM COLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_164957.jpg?raw=true" alt="LOREAL EXCELLENCE CREAM COLOR">
       </div>
       <h2>LOREAL EXCELLENCE CREAM COLOR</h2>
       <p>₹769</p>
@@ -152,7 +229,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_165137.jpg?raw=true" alt="OXYLIFE MEN BLEACH">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_165137.jpg?raw=true" alt="OXYLIFE MEN BLEACH">
       </div>
       <h2>OXYLIFE MEN BLEACH</h2>
       <p>₹160</p>
@@ -160,7 +237,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_165438.jpg?raw=true" alt="LOREAL XTENSO KERATIN SHAMPOO/MASK">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_165438.jpg?raw=true" alt="LOREAL XTENSO KERATIN SHAMPOO/MASK">
       </div>
       <h2>LOREAL XTENSO KERATIN SHAMPOO/MASK</h2>
       <p>₹1175/1290</p>
@@ -168,7 +245,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_165534.jpg?raw=true" alt="LOREAL INFORCER SHAMPOO/ MASK">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_165534.jpg?raw=true" alt="LOREAL INFORCER SHAMPOO/ MASK">
       </div>
       <h2>LOREAL INFORCER SHAMPOO/ MASK</h2>
       <p>₹790/975</p>
@@ -176,7 +253,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_165500.jpg?raw=true" alt="LOREAL ABSOLUT REPAIR SHAMPOO/MASK">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_165500.jpg?raw=true" alt="LOREAL ABSOLUT REPAIR SHAMPOO/MASK">
       </div>
       <h2>LOREAL ABSOLUT REPAIR SHAMPOO/MASK</h2>
       <p>₹790/975</p>
@@ -184,7 +261,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_165523.jpg?raw=true" alt="LOREAL LISS SHAMPOO/MASK">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_165523.jpg?raw=true" alt="LOREAL LISS SHAMPOO/MASK">
       </div>
       <h2>LOREAL LISS SHAMPOO/MASK</h2>
       <p>₹745/920</p>
@@ -192,7 +269,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_165706.jpg?raw=true" alt="SILKIVE SHAMPOO/CONDITIONER">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_165706.jpg?raw=true" alt="SILKIVE SHAMPOO/CONDITIONER">
       </div>
       <h2>SILKIVE SHAMPOO/CONDITIONER</h2>
       <p>₹1199</p>
@@ -200,7 +277,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_165552.jpg?raw=true" alt="STREAX SHAMPOO /MASK">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_165552.jpg?raw=true" alt="STREAX SHAMPOO /MASK">
       </div>
       <h2>STREAX SHAMPOO /MASK</h2>
       <p>₹300/330</p>
@@ -208,7 +285,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_165606.jpg?raw=true" alt="LOREAL PROKERATIN SHAMPOO/MASK">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_165606.jpg?raw=true" alt="LOREAL PROKERATIN SHAMPOO/MASK">
       </div>
       <h2>LOREAL PROKERATIN SHAMPOO/MASK</h2>
       <p>₹690/850</p>
@@ -216,7 +293,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170010.jpg?raw=true" alt="O3 D TAN PACK">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170010.jpg?raw=true" alt="O3 D TAN PACK">
       </div>
       <h2>O3 D TAN PACK</h2>
       <p>₹1550</p>
@@ -224,7 +301,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_165758.jpg?raw=true" alt="FLORACTIVE SHAMPOO/CONDITIONER">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_165758.jpg?raw=true" alt="FLORACTIVE SHAMPOO/CONDITIONER">
       </div>
       <h2>FLORACTIVE SHAMPOO/CONDITIONER</h2>
       <p>₹1700/1700</p>
@@ -232,7 +309,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_165956.jpg?raw=true" alt="SPRA OXY D TAN">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_165956.jpg?raw=true" alt="SPRA OXY D TAN">
       </div>
       <h2>SPRA OXY D TAN</h2>
       <p>₹1325</p>
@@ -240,7 +317,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170052.jpg?raw=true" alt="SPECIFIX D TAN PACK">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170052.jpg?raw=true" alt="SPECIFIX D TAN PACK">
       </div>
       <h2>SPECIFIX D TAN PACK</h2>
       <p>₹775</p>
@@ -248,7 +325,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170020.jpg?raw=true" alt="O 3 D TAN PACK 50 GM">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170020.jpg?raw=true" alt="O 3 D TAN PACK 50 GM">
       </div>
       <h2>O 3 D TAN PACK 50 GM</h2>
       <p>₹830</p>
@@ -256,7 +333,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170041.jpg?raw=true" alt="BNK D TAN FACE AND BODY">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170041.jpg?raw=true" alt="BNK D TAN FACE AND BODY">
       </div>
       <h2>BNK D TAN FACE AND BODY</h2>
       <p>₹1496</p>
@@ -264,7 +341,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170339.jpg?raw=true" alt="BIO RECH FACE SERUM">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170339.jpg?raw=true" alt="BIO RECH FACE SERUM">
       </div>
       <h2>BIO RECH FACE SERUM</h2>
       <p>₹399</p>
@@ -272,7 +349,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170113.jpg?raw=true" alt="RAAGA D TAN PACK">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170113.jpg?raw=true" alt="RAAGA D TAN PACK">
       </div>
       <h2>RAAGA D TAN PACK</h2>
       <p>₹1375</p>
@@ -280,7 +357,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170133.jpg?raw=true" alt="RAAGA D TAN PACK POUCH">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170133.jpg?raw=true" alt="RAAGA D TAN PACK POUCH">
       </div>
       <h2>RAAGA D TAN PACK POUCH</h2>
       <p>₹324</p>
@@ -288,7 +365,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170420.jpg?raw=true" alt="MATRIX OPTI CARE HAIR SERUM">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170420.jpg?raw=true" alt="MATRIX OPTI CARE HAIR SERUM">
       </div>
       <h2>MATRIX OPTI CARE HAIR SERUM</h2>
       <p>₹559</p>
@@ -296,7 +373,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170351.jpg?raw=true" alt="SAFFRON HAIR SERUM">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170351.jpg?raw=true" alt="SAFFRON HAIR SERUM">
       </div>
       <h2>SAFFRON HAIR SERUM</h2>
       <p>₹299</p>
@@ -304,7 +381,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170407.jpg?raw=true" alt="BEAUTE BLANC HAIR SERUM">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170407.jpg?raw=true" alt="BEAUTE BLANC HAIR SERUM">
       </div>
       <h2>BEAUTE BLANC HAIR SERUM</h2>
       <p>₹241</p>
@@ -312,7 +389,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170505.jpg?raw=true" alt="LOREAL LISS HAIR SERUM">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170505.jpg?raw=true" alt="LOREAL LISS HAIR SERUM">
       </div>
       <h2>LOREAL LISS HAIR SERUM</h2>
       <p>₹820</p>
@@ -320,7 +397,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170435.jpg?raw=true" alt="LOREAL XTENSO HAIR SERUM">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170435.jpg?raw=true" alt="LOREAL XTENSO HAIR SERUM">
       </div>
       <h2>LOREAL XTENSO HAIR SERUM</h2>
       <p>₹750</p>
@@ -328,7 +405,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170449.jpg?raw=true" alt="MATRIX BIOLAGE HAIR SERUM">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170449.jpg?raw=true" alt="MATRIX BIOLAGE HAIR SERUM">
       </div>
       <h2>MATRIX BIOLAGE HAIR SERUM</h2>
       <p>₹350</p>
@@ -336,7 +413,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170644.jpg?raw=true" alt="NEURON REZA WAX">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170644.jpg?raw=true" alt="NEURON REZA WAX">
       </div>
       <h2>NEURON REZA WAX</h2>
       <p>₹1375</p>
@@ -344,7 +421,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170518.jpg?raw=true" alt="STREAX HAIR SERUM">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170518.jpg?raw=true" alt="STREAX HAIR SERUM">
       </div>
       <h2>STREAX HAIR SERUM</h2>
       <p>₹320</p>
@@ -352,7 +429,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170529.jpg?raw=true" alt="STREAX HAIR SERUM 45ML">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170529.jpg?raw=true" alt="STREAX HAIR SERUM 45ML">
       </div>
       <h2>STREAX HAIR SERUM 45ML</h2>
       <p>₹149</p>
@@ -360,7 +437,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170813.jpg?raw=true" alt="LOREAL HAIR SPA IMPULSE">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170813.jpg?raw=true" alt="LOREAL HAIR SPA IMPULSE">
       </div>
       <h2>LOREAL HAIR SPA IMPULSE</h2>
       <p>₹800</p>
@@ -368,7 +445,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170724.jpg?raw=true" alt="MATRIX OPTI CARE MASK">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170724.jpg?raw=true" alt="MATRIX OPTI CARE MASK">
       </div>
       <h2>MATRIX OPTI CARE MASK</h2>
       <p>₹875</p>
@@ -376,7 +453,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170745.jpg?raw=true" alt="LOREAL HAIR SPA SMOOTH">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170745.jpg?raw=true" alt="LOREAL HAIR SPA SMOOTH">
       </div>
       <h2>LOREAL HAIR SPA SMOOTH</h2>
       <p>₹800</p>
@@ -384,7 +461,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170857.jpg?raw=true" alt="O 3 RICA WAX">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170857.jpg?raw=true" alt="O 3 RICA WAX">
       </div>
       <h2>O 3 RICA WAX</h2>
       <p>₹1100</p>
@@ -392,7 +469,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170828.jpg?raw=true" alt="RAAGA RICA WAX">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170828.jpg?raw=true" alt="RAAGA RICA WAX">
       </div>
       <h2>RAAGA RICA WAX</h2>
       <p>₹1345</p>
@@ -400,7 +477,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170844.jpg?raw=true" alt="RICA WAX">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170844.jpg?raw=true" alt="RICA WAX">
       </div>
       <h2>RICA WAX</h2>
       <p>₹1350</p>
@@ -408,7 +485,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170956.jpg?raw=true" alt="MATRIX REPAIR MASK">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170956.jpg?raw=true" alt="MATRIX REPAIR MASK">
       </div>
       <h2>MATRIX REPAIR MASK</h2>
       <p>₹875</p>
@@ -416,7 +493,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170919.jpg?raw=true" alt="STREAX HIGHLIGHTINING POWDER">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170919.jpg?raw=true" alt="STREAX HIGHLIGHTINING POWDER">
       </div>
       <h2>STREAX HIGHLIGHTINING POWDER</h2>
       <p>₹650</p>
@@ -424,7 +501,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_170943.jpg?raw=true" alt="SCHWARZKOP HAIR SPA">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_170943.jpg?raw=true" alt="SCHWARZKOP HAIR SPA">
       </div>
       <h2>SCHWARZKOP HAIR SPA</h2>
       <p>₹660</p>
@@ -432,7 +509,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_171455.jpg?raw=true" alt="LOREAL XTENSO NUTRILIZER">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_171455.jpg?raw=true" alt="LOREAL XTENSO NUTRILIZER">
       </div>
       <h2>LOREAL XTENSO NUTRILIZER</h2>
       <p>₹500</p>
@@ -440,7 +517,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_171015.jpg?raw=true" alt="RAAGA HAIR SPA">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_171015.jpg?raw=true" alt="RAAGA HAIR SPA">
       </div>
       <h2>RAAGA HAIR SPA</h2>
       <p>₹795</p>
@@ -448,7 +525,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_171442.jpg?raw=true" alt="LOREAL NUTRILIZER">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_171442.jpg?raw=true" alt="LOREAL NUTRILIZER">
       </div>
       <h2>LOREAL NUTRILIZER</h2>
       <p>₹910</p>
@@ -456,7 +533,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_171612.jpg?raw=true" alt="MATRIX HAIR INSTANT HAIR CREAM">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_171612.jpg?raw=true" alt="MATRIX HAIR INSTANT HAIR CREAM">
       </div>
       <h2>MATRIX HAIR INSTANT HAIR CREAM</h2>
       <p>₹1345</p>
@@ -464,7 +541,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_171506.jpg?raw=true" alt="MATRIX NUTRILIZER">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_171506.jpg?raw=true" alt="MATRIX NUTRILIZER">
       </div>
       <h2>MATRIX NUTRILIZER</h2>
       <p>₹445</p>
@@ -472,7 +549,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_171558.jpg?raw=true" alt="LOREAL HAIR SPA SCRUB">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_171558.jpg?raw=true" alt="LOREAL HAIR SPA SCRUB">
       </div>
       <h2>LOREAL HAIR SPA SCRUB</h2>
       <p>₹900</p>
@@ -480,7 +557,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_171653.jpg?raw=true" alt="BNK STENTING CREAM/NUTRILIZER">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_171653.jpg?raw=true" alt="BNK STENTING CREAM/NUTRILIZER">
       </div>
       <h2>BNK STENTING CREAM/NUTRILIZER</h2>
       <p>₹500/300</p>
@@ -488,7 +565,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_171623.jpg?raw=true" alt="LOREAL RESISTANT SMOOTHNING CREAM">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_171623.jpg?raw=true" alt="LOREAL RESISTANT SMOOTHNING CREAM">
       </div>
       <h2>LOREAL RESISTANT SMOOTHNING CREAM</h2>
       <p>₹1600</p>
@@ -496,7 +573,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_171632.jpg?raw=true" alt="LOREAL LISS SMOOTHNING CREAM">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_171632.jpg?raw=true" alt="LOREAL LISS SMOOTHNING CREAM">
       </div>
       <h2>LOREAL LISS SMOOTHNING CREAM</h2>
       <p>₹1600</p>
@@ -504,7 +581,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172121.jpg?raw=true" alt="MATRIX INSTA CURE SHAMPOO">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172121.jpg?raw=true" alt="MATRIX INSTA CURE SHAMPOO">
       </div>
       <h2>MATRIX INSTA CURE SHAMPOO</h2>
       <p>₹435</p>
@@ -512,7 +589,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172104.jpg?raw=true" alt="BIO RECH GOLDEN SHINER">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172104.jpg?raw=true" alt="BIO RECH GOLDEN SHINER">
       </div>
       <h2>BIO RECH GOLDEN SHINER</h2>
       <p>₹650</p>
@@ -520,7 +597,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172114.jpg?raw=true" alt="MATRIX CARE CONDITIONER">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172114.jpg?raw=true" alt="MATRIX CARE CONDITIONER">
       </div>
       <h2>MATRIX CARE CONDITIONER</h2>
       <p>₹335</p>
@@ -528,7 +605,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172148.jpg?raw=true" alt="MATRIX BIOLAGE HYDRA SHAMPOO">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172148.jpg?raw=true" alt="MATRIX BIOLAGE HYDRA SHAMPOO">
       </div>
       <h2>MATRIX BIOLAGE HYDRA SHAMPOO</h2>
       <p>₹260</p>
@@ -536,7 +613,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172130.jpg?raw=true" alt="MATRIX MEGA SMOOTH SHAMPOO">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172130.jpg?raw=true" alt="MATRIX MEGA SMOOTH SHAMPOO">
       </div>
       <h2>MATRIX MEGA SMOOTH SHAMPOO</h2>
       <p>₹435</p>
@@ -544,7 +621,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172139.jpg?raw=true" alt="MATRIX BIO FIBER SHAMPOO">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172139.jpg?raw=true" alt="MATRIX BIO FIBER SHAMPOO">
       </div>
       <h2>MATRIX BIO FIBER SHAMPOO</h2>
       <p>₹450</p>
@@ -552,7 +629,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172223.jpg?raw=true" alt="STYLE LOOK HAIR CAPSULE VITAMIN E">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172223.jpg?raw=true" alt="STYLE LOOK HAIR CAPSULE VITAMIN E">
       </div>
       <h2>STYLE LOOK HAIR CAPSULE VITAMIN E</h2>
       <p>₹349</p>
@@ -560,7 +637,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172158.jpg?raw=true" alt="MATRIX BIO FIBER CONDITIONER">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172158.jpg?raw=true" alt="MATRIX BIO FIBER CONDITIONER">
       </div>
       <h2>MATRIX BIO FIBER CONDITIONER</h2>
       <p>₹350</p>
@@ -568,7 +645,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172210.jpg?raw=true" alt="MATRIX BIO LAGE HYDRA CONDITIONER">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172210.jpg?raw=true" alt="MATRIX BIO LAGE HYDRA CONDITIONER">
       </div>
       <h2>MATRIX BIO LAGE HYDRA CONDITIONER</h2>
       <p>₹215</p>
@@ -576,7 +653,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172310.jpg?raw=true" alt="BIO RECH SKIN WHITNING SHINER BLEACH">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172310.jpg?raw=true" alt="BIO RECH SKIN WHITNING SHINER BLEACH">
       </div>
       <h2>BIO RECH SKIN WHITNING SHINER BLEACH</h2>
       <p>₹350</p>
@@ -584,7 +661,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172230.jpg?raw=true" alt="ELITE LOOK GOLD CAPSULE VITAMIN E">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172230.jpg?raw=true" alt="ELITE LOOK GOLD CAPSULE VITAMIN E">
       </div>
       <h2>ELITE LOOK GOLD CAPSULE VITAMIN E</h2>
       <p>₹200</p>
@@ -592,7 +669,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172300.jpg?raw=true" alt="BIO RECH OXY DIOMOND SHINER BLEACH">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172300.jpg?raw=true" alt="BIO RECH OXY DIOMOND SHINER BLEACH">
       </div>
       <h2>BIO RECH OXY DIOMOND SHINER BLEACH</h2>
       <p>₹650</p>
@@ -600,7 +677,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172511.jpg?raw=true" alt="N+ TAN ERASER FACIAL KIT">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172511.jpg?raw=true" alt="N+ TAN ERASER FACIAL KIT">
       </div>
       <h2>N+ TAN ERASER FACIAL KIT</h2>
       <p>₹2100</p>
@@ -608,7 +685,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172320.jpg?raw=true" alt="BIO RECH OXY DIOMOND SHINER BLEACH">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172320.jpg?raw=true" alt="BIO RECH OXY DIOMOND SHINER BLEACH">
       </div>
       <h2>BIO RECH OXY DIOMOND SHINER BLEACH</h2>
       <p>₹350</p>
@@ -616,7 +693,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172458.jpg?raw=true" alt="O3 POWER BRIGHTNING FACIAL KIT">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172458.jpg?raw=true" alt="O3 POWER BRIGHTNING FACIAL KIT">
       </div>
       <h2>O3 POWER BRIGHTNING FACIAL KIT</h2>
       <p>₹2900</p>
@@ -624,7 +701,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172552.jpg?raw=true" alt="LOTUS RADIANT FACIAL KIT">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172552.jpg?raw=true" alt="LOTUS RADIANT FACIAL KIT">
       </div>
       <h2>LOTUS RADIANT FACIAL KIT</h2>
       <p>₹1405</p>
@@ -632,7 +709,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172527.jpg?raw=true" alt="O3 D WHITNING FACIAL KIT">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172527.jpg?raw=true" alt="O3 D WHITNING FACIAL KIT">
       </div>
       <h2>O3 D WHITNING FACIAL KIT</h2>
       <p>₹5150</p>
@@ -640,7 +717,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172539.jpg?raw=true" alt="LOTUS RADIANT GOLD FACIAL KIT">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172539.jpg?raw=true" alt="LOTUS RADIANT GOLD FACIAL KIT">
       </div>
       <h2>LOTUS RADIANT GOLD FACIAL KIT</h2>
       <p>₹1215</p>
@@ -648,7 +725,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172813.jpg?raw=true" alt="PROTEC KERATIN TREETMENT">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172813.jpg?raw=true" alt="PROTEC KERATIN TREETMENT">
       </div>
       <h2>PROTEC KERATIN TREETMENT</h2>
       <p>₹1000</p>
@@ -656,7 +733,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172606.jpg?raw=true" alt="LOTUS WHITNING FACIAL KIT">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172606.jpg?raw=true" alt="LOTUS WHITNING FACIAL KIT">
       </div>
       <h2>LOTUS WHITNING FACIAL KIT</h2>
       <p>₹945</p>
@@ -664,7 +741,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172803.jpg?raw=true" alt="PROTEC KERATIN TREETMENT 250 ML">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172803.jpg?raw=true" alt="PROTEC KERATIN TREETMENT 250 ML">
       </div>
       <h2>PROTEC KERATIN TREETMENT 250 ML</h2>
       <p>₹599</p>
@@ -672,7 +749,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172846.jpg?raw=true" alt="PROTEC KERATIN CONDITIONER">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172846.jpg?raw=true" alt="PROTEC KERATIN CONDITIONER">
       </div>
       <h2>PROTEC KERATIN CONDITIONER</h2>
       <p>₹699</p>
@@ -680,7 +757,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172822.jpg?raw=true" alt="PROTEC KERATIN SHAMPOO">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172822.jpg?raw=true" alt="PROTEC KERATIN SHAMPOO">
       </div>
       <h2>PROTEC KERATIN SHAMPOO</h2>
       <p>₹999</p>
@@ -688,7 +765,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172835.jpg?raw=true" alt="PROTEC BOTOX SHAMPOO">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172835.jpg?raw=true" alt="PROTEC BOTOX SHAMPOO">
       </div>
       <h2>PROTEC BOTOX SHAMPOO</h2>
       <p>₹599</p>
@@ -696,7 +773,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172941.jpg?raw=true" alt="FAIR GLOW COLOUR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172941.jpg?raw=true" alt="FAIR GLOW COLOUR">
       </div>
       <h2>FAIR GLOW COLOUR</h2>
       <p>₹229</p>
@@ -704,7 +781,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172914.jpg?raw=true" alt="PROTEC NANOPLASTIA">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172914.jpg?raw=true" alt="PROTEC NANOPLASTIA">
       </div>
       <h2>PROTEC NANOPLASTIA</h2>
       <p>₹999</p>
@@ -712,7 +789,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_172929.jpg?raw=true" alt="WELLA BLONDOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_172929.jpg?raw=true" alt="WELLA BLONDOR">
       </div>
       <h2>WELLA BLONDOR</h2>
       <p>₹1450</p>
@@ -720,7 +797,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_173214.jpg?raw=true" alt="DR RASEL NOSE STRIP">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_173214.jpg?raw=true" alt="DR RASEL NOSE STRIP">
       </div>
       <h2>DR RASEL NOSE STRIP</h2>
       <p>₹140</p>
@@ -728,7 +805,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_173010.jpg?raw=true" alt="PROTEC KERATIN CONDITIONER 250ML">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_173010.jpg?raw=true" alt="PROTEC KERATIN CONDITIONER 250ML">
       </div>
       <h2>PROTEC KERATIN CONDITIONER 250ML</h2>
       <p>₹599</p>
@@ -736,7 +813,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_173029.jpg?raw=true" alt="PROTEC KERATIN SHAMPOO 250ML">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_173029.jpg?raw=true" alt="PROTEC KERATIN SHAMPOO 250ML">
       </div>
       <h2>PROTEC KERATIN SHAMPOO 250ML</h2>
       <p>₹599</p>
@@ -744,7 +821,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_180442.jpg?raw=true" alt="LOREAL INOVA COLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_180442.jpg?raw=true" alt="LOREAL INOVA COLOR">
       </div>
       <h2>LOREAL INOVA COLOR</h2>
       <p>₹565</p>
@@ -752,7 +829,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_180726.jpg?raw=true" alt="MATRIX SOCOLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_180726.jpg?raw=true" alt="MATRIX SOCOLOR">
       </div>
       <h2>MATRIX SOCOLOR</h2>
       <p>₹395</p>
@@ -760,7 +837,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_180840.jpg?raw=true" alt="LOREAL MAJIREL COLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_180840.jpg?raw=true" alt="LOREAL MAJIREL COLOR">
       </div>
       <h2>LOREAL MAJIREL COLOR</h2>
       <p>₹420</p>
@@ -768,7 +845,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_180840.jpg?raw=true" alt="LOREAL MAJIREL COLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_180840.jpg?raw=true" alt="LOREAL MAJIREL COLOR">
       </div>
       <h2>LOREAL MAJIREL COLOR</h2>
       <p>₹420</p>
@@ -776,7 +853,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_182016.jpg?raw=true" alt="LOREAL SHADE MAJIREL COLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_182016.jpg?raw=true" alt="LOREAL SHADE MAJIREL COLOR">
       </div>
       <h2>LOREAL SHADE MAJIREL COLOR</h2>
       <p>₹475</p>
@@ -784,7 +861,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_180918.jpg?raw=true" alt="SCHWARZKOP HAIR COLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_180918.jpg?raw=true" alt="SCHWARZKOP HAIR COLOR">
       </div>
       <h2>SCHWARZKOP HAIR COLOR</h2>
       <p>₹425</p>
@@ -792,7 +869,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_180918.jpg?raw=true" alt="SCHWARZKOP HAIR COLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_180918.jpg?raw=true" alt="SCHWARZKOP HAIR COLOR">
       </div>
       <h2>SCHWARZKOP HAIR COLOR</h2>
       <p>₹550</p>
@@ -800,7 +877,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_181011.jpg?raw=true" alt="RAAGA HAIR COLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_181011.jpg?raw=true" alt="RAAGA HAIR COLOR">
       </div>
       <h2>RAAGA HAIR COLOR</h2>
       <p>₹285</p>
@@ -808,7 +885,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_182303.jpg?raw=true" alt="STREAX HAIR COLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_182303.jpg?raw=true" alt="STREAX HAIR COLOR">
       </div>
       <h2>STREAX HAIR COLOR</h2>
       <p>₹205</p>
@@ -816,7 +893,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_182047.jpg?raw=true" alt="BIGEN BEARD COLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_182047.jpg?raw=true" alt="BIGEN BEARD COLOR">
       </div>
       <h2>BIGEN BEARD COLOR</h2>
       <p>₹450</p>
@@ -824,7 +901,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_182047.jpg?raw=true" alt="BIGEN BEARD COLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_182047.jpg?raw=true" alt="BIGEN BEARD COLOR">
       </div>
       <h2>BIGEN BEARD COLOR</h2>
       <p>₹450</p>
@@ -832,7 +909,7 @@
 
     <div class="product">
       <div class="image-container">
-        <img src="https://github.com/sscosmetricHub/products/blob/main/IMG_20251003_182702.jpg?raw=true" alt="GARNIER HAIR COLOR">
+        <img src="https://github.com/SScosmeticHub/products/blob/main/IMG_20251003_182702.jpg?raw=true" alt="GARNIER HAIR COLOR">
       </div>
       <h2>GARNIER HAIR COLOR</h2>
       <p>₹229</p>
@@ -847,7 +924,14 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const images = document.querySelectorAll('.product img');
+      const searchInput = document.getElementById('searchInput');
+      const clearButton = document.getElementById('clearButton');
+      const productsContainer = document.getElementById('productsContainer');
+      const resultCount = document.getElementById('resultCount');
+      const resultsHeader = document.getElementById('resultsHeader');
+      const allProducts = Array.from(document.querySelectorAll('.product'));
       
+      // Handle image errors
       images.forEach(img => {
         img.addEventListener('error', function() {
           const container = this.parentElement;
@@ -860,6 +944,54 @@
           container.appendChild(placeholder);
         });
       });
+      
+      // Search functionality
+      function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        let visibleCount = 0;
+        
+        allProducts.forEach(product => {
+          const productName = product.querySelector('h2').textContent.toLowerCase();
+          const isVisible = searchTerm === '' || productName.includes(searchTerm);
+          
+          if (isVisible) {
+            product.style.display = 'flex';
+            visibleCount++;
+          } else {
+            product.style.display = 'none';
+          }
+        });
+        
+        // Update result count and show/hide results header
+        resultCount.textContent = visibleCount;
+        
+        // Show/hide results header and clear button only when searching
+        if (searchTerm !== '') {
+          resultsHeader.classList.add('visible');
+          clearButton.classList.add('visible');
+        } else {
+          resultsHeader.classList.remove('visible');
+          clearButton.classList.remove('visible');
+        }
+      }
+      
+      // Clear search function
+      window.clearSearch = function() {
+        searchInput.value = '';
+        performSearch();
+        searchInput.focus();
+      };
+      
+      // Event listeners
+      searchInput.addEventListener('input', performSearch);
+      searchInput.addEventListener('keyup', function(e) {
+        if (e.key === 'Escape') {
+          clearSearch();
+        }
+      });
+      
+      // Initialize - show all products
+      performSearch();
     });
   </script>
 </body>
